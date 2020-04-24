@@ -1,4 +1,4 @@
-package ikpb.com.service;
+package com.ikpb.service;
 
 import java.util.List;
 import java.util.Optional;

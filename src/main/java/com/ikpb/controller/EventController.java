@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ikpb.models.Events;
-
-
-import ikpb.com.service.EventsService;
+import com.ikpb.service.EventsService;
 
 @RestController
 @RequestMapping("/events")

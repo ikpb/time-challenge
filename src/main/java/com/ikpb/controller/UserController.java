@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ikpb.models.Users;
-
-import ikpb.com.service.UserService;
+import com.ikpb.service.UserService;
 
 @RestController
 @RequestMapping("/users")
