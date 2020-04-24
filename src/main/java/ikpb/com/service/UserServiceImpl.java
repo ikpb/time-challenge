@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ikpb.models.Users;
 import com.ikpb.repository.UserRepository;
 
+
+@Service
 public class UserServiceImpl implements UserService {
-	private UserRepository ur;
-	
 	
 	@Autowired
-	public UserServiceImpl(UserRepository ur) {
-		this.ur = ur;
-	}
+	private UserRepository ur;
+	
+
 
 	@Override
 	public List<Users> getUsers() {

@@ -17,10 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Component
+
 @Entity
 @Table(name = "events")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "eventId")
 public class Events {
 
 	@Id
@@ -50,12 +49,12 @@ public class Events {
 	private boolean archived;
 	
 	@ManyToOne
-	@JoinColumn(name="username")
+	@JoinColumn(name="users")
 	@JsonIdentityReference(alwaysAsId = true)
-	private String username;
+	private Users users;
 
 	public Events(int eventId, String eventTitle, String location, String dateOfEvent, Date timeOfEvent, boolean active,
-			boolean archived, String username) {
+			boolean archived, Users username) {
 		super();
 		this.eventId = eventId;
 		this.eventTitle = eventTitle;
@@ -64,7 +63,7 @@ public class Events {
 		this.timeOfEvent = timeOfEvent;
 		this.active = active;
 		this.archived = archived;
-		this.username = username;
+		this.users = username;
 	}
 
 	public Events() {
@@ -128,12 +127,12 @@ public class Events {
 		this.archived = archived;
 	}
 
-	public String getUsername() {
-		return username;
+	public Users getUsername() {
+		return users;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(Users username) {
+		this.users = username;
 	}
 
 	@Override
@@ -147,7 +146,7 @@ public class Events {
 		result = prime * result + ((eventTitle == null) ? 0 : eventTitle.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((timeOfEvent == null) ? 0 : timeOfEvent.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
 
@@ -186,10 +185,10 @@ public class Events {
 				return false;
 		} else if (!timeOfEvent.equals(other.timeOfEvent))
 			return false;
-		if (username == null) {
-			if (other.username != null)
+		if (users == null) {
+			if (other.users != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!users.equals(other.users))
 			return false;
 		return true;
 	}
@@ -198,7 +197,7 @@ public class Events {
 	public String toString() {
 		return "Events [eventId=" + eventId + ", eventTitle=" + eventTitle + ", location=" + location + ", dateOfEvent="
 				+ dateOfEvent + ", timeOfEvent=" + timeOfEvent + ", active=" + active + ", archived=" + archived
-				+ ", username=" + username + "]";
+				+ ", username=" + users + "]";
 	}
 	
 	

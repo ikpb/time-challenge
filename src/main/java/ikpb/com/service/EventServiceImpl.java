@@ -5,18 +5,18 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.ikpb.models.Events;
 import com.ikpb.repository.EventRepository;
 
-
-public class EventServiceImpl implements EventService {
+@Service
+public class EventServiceImpl implements EventsService {
 
 	private EventRepository er;
-	
-	
-	
+	@Autowired
 	public EventServiceImpl(EventRepository er) {
-		super();
 		this.er = er;
 	}
 
@@ -29,7 +29,7 @@ public class EventServiceImpl implements EventService {
 	@Override
 	public Optional<Events> getFormById(int id) {
 		
-		return er.getEventByEventId(id);
+		return er.findById(id);
 	}
 
 	@Override

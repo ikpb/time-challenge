@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.ikpb.models.Users;
-
 public interface UserService {
 
 	public List<Users> getUsers();

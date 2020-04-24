@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import com.ikpb.models.Events;
 
-public interface EventService {
+public interface EventsService {
 
 	public List<Events> getEventss();
 	public Optional<Events> getFormById(int id);

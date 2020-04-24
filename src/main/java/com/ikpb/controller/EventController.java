@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ikpb.models.Events;
 
-import ikpb.com.service.EventService;
+
+import ikpb.com.service.EventsService;
 
 @RestController
 @RequestMapping("/events")
 @CrossOrigin
 public class EventController {
-	private EventService es;
-
-	public EventController(EventService es) {
-		this.es = es;
-	}
+	
+	@Autowired
+	private EventsService es;
 
 	@GetMapping
 	public List<Events> getAllEvents() {

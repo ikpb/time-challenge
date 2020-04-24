@@ -21,16 +21,15 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Component
+
 @Entity
-@Table(name = "applicationusers")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+@Table(name = "users")
 public class Users {
 	
 	@Id
 	@Valid
 	@NotBlank
-	@Column(name="user_name")
+	@Column(name="username")
 	@Size(min=3,max=12)
 	@Pattern(regexp="^\\w+\\.?\\w+$")
 	private String username;
@@ -43,7 +42,7 @@ public class Users {
 	private String password;
 	
 	@Transient
-	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Events.class)
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Events.class)
 	private List<Events> myEvents = new ArrayList<Events>();
 
 	public String getUsername() {
