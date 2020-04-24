@@ -3,10 +3,14 @@ package com.ikpb.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -38,16 +42,8 @@ public class Users {
 	@Size(min=6, max=20)
 	private String password;
 	
-	
-	@Column(name = "isaccountnonexpired")
-	private boolean isAccountNonExpired;
-	
-	@Column(name = "isaccountnonlocked")
-	private boolean isAccountNonLocked;
-	
-	@Column(name = "iscredentialsnonexpired")
-	private boolean isCredentialsNonExpired;
-	
+	@Transient
+	@OneToMany(mappedBy = "username", fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Events.class)
 	private List<Events> myEvents = new ArrayList<Events>();
 
 	public String getUsername() {
@@ -66,44 +62,62 @@ public class Users {
 		this.password = password;
 	}
 
-	public boolean isAccountNonExpired() {
-		return isAccountNonExpired;
+	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((myEvents == null) ? 0 : myEvents.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
-	public void setAccountNonExpired(boolean isAccountNonExpired) {
-		this.isAccountNonExpired = isAccountNonExpired;
-	}
-
-	public boolean isAccountNonLocked() {
-		return isAccountNonLocked;
-	}
-
-	public void setAccountNonLocked(boolean isAccountNonLocked) {
-		this.isAccountNonLocked = isAccountNonLocked;
-	}
-
-	public boolean isCredentialsNonExpired() {
-		return isCredentialsNonExpired;
-	}
-
-	public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
-		this.isCredentialsNonExpired = isCredentialsNonExpired;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Users other = (Users) obj;
+		if (myEvents == null) {
+			if (other.myEvents != null)
+				return false;
+		} else if (!myEvents.equals(other.myEvents))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
 
 	public Users(@Valid @NotBlank @Size(min = 3, max = 12) @Pattern(regexp = "^\\w+\\.?\\w+$") String username,
-			@Valid @NotBlank @Size(min = 6, max = 20) String password, boolean isAccountNonExpired,
-			boolean isAccountNonLocked, boolean isCredentialsNonExpired) {
+			@Valid @NotBlank @Size(min = 6, max = 20) String password, List<Events> myEvents) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.isAccountNonExpired = isAccountNonExpired;
-		this.isAccountNonLocked = isAccountNonLocked;
-		this.isCredentialsNonExpired = isCredentialsNonExpired;
+		this.myEvents = myEvents;
 	}
 
 	public Users() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Users [username=" + username + ", password=" + password + ", myEvents=" + myEvents + "]";
 	}
 
 
